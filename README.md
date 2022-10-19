@@ -119,6 +119,41 @@ nearlearning.testnet
 expect erupt antenna simple census stereo student sadness fever cousin news escape
 ```
 
+### Counter Projectのテスト結果
+
+```zsh
+running 5 tests
+test tests::panics_on_overflow - should panic ... ok
+test tests::panics_on_underflow - should panic ... ok
+test tests::decrement ... ok
+test tests::increment ... ok
+test tests::increment_and_reset ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> counter-rust@1.0.0 test:integration
+> cd integration-tests && npm test -- -- "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+> integration-tests@1.0.0 test
+> ava "--" "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+Contract logs from contract.test.near.increment({}) call: [ 'Increased number to 1' ]
+  ✔ can be incremented (2.5s)
+Contract logs from contract.test.near.increment({}) call: [ 'Increased number to 1' ]
+Contract logs from contract.test.near.increment({}) call: [ 'Increased number to 1' ]
+Contract logs from contract.test.near.decrement({}) call: [ 'Decreased number to 0' ]
+  ✔ can be decremented (5s)
+Contract logs from contract.test.near.increment({}) call: [ 'Increased number to 2' ]
+Contract logs from contract.test.near.reset({}) call: [ 'Reset counter to zero' ]
+  ✔ can be reset (7.5s)
+  ─
+
+  3 tests passed
+```
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
@@ -126,3 +161,6 @@ expect erupt antenna simple census stereo student sadness fever cousin news esca
 4. [RPC Providers](https://docs.near.org/api/rpc/providers)
 5. [NEAR University](https://www.near.university/)
 6. [Create NAER App](https://github.com/near/create-near-app)
+7. [Near Example Counter Rust](https://github.com/near-examples/counter-rust)
+8. [Near Example Fungible Token](https://github.com/near-examples/FT)
+9. [Near Example NFT](https://github.com/near-examples/NFT)
