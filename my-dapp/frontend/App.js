@@ -1,22 +1,27 @@
 import 'regenerator-runtime/runtime';
 import React from 'react';
 
-import './assets/global.css';
+import './assets/css/global.css';
 
 import { 
   EducationalText, 
   SignInPrompt, 
   SignOutButton 
-} from './ui-components';
+} from './assets/js/components/ui-components';
 
-
+/**
+ * App Component
+ * @param {*} param0 
+ * @returns 
+ */
 export default function App({ isSignedIn, helloNEAR, wallet }) {
+  // state variable
   const [valueFromBlockchain, setValueFromBlockchain] = React.useState();
-
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
   // Get blockchian state once on component load
   React.useEffect(() => {
+    // call getGreeting function
     helloNEAR.getGreeting()
       .then(setValueFromBlockchain)
       .catch(alert)
@@ -31,10 +36,17 @@ export default function App({ isSignedIn, helloNEAR, wallet }) {
     return <SignInPrompt greeting={valueFromBlockchain} onClick={() => wallet.signIn()}/>;
   }
 
+  /**
+   * changeGreeting method
+   * @param {*} e 
+   */
   function changeGreeting(e) {
     e.preventDefault();
     setUiPleaseWait(true);
+    // get new greeting
     const { greetingInput } = e.target.elements;
+    
+    // call setGreeting function
     helloNEAR.setGreeting(greetingInput.value)
       .then(async () => {return helloNEAR.getGreeting();})
       .then(setValueFromBlockchain)
