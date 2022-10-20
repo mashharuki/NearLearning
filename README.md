@@ -154,6 +154,56 @@ Contract logs from contract.test.near.reset({}) call: [ 'Reset counter to zero' 
   3 tests passed
 ```
 
+### Counter Contract のデプロイ記録
+
+```zsh
+>> Building contract
+info: component 'rust-std' for target 'wasm32-unknown-unknown' is up to date
+    Finished release [optimized] target(s) in 1.78s
+>> Deploying contract
+Starting deployment. Account id: dev-1666224453427-38248329492791, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: ./target/wasm32-unknown-unknown/release/contract.wasm
+Transaction Id 7nP16Qqgh6bExwUFa6Swh8GJzbjMcCWX12Bmzxco36bP
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/7nP16Qqgh6bExwUFa6Swh8GJzbjMcCWX12Bmzxco36bP
+Done deploying to dev-1666224453427-38248329492791
+```
+
+### Guest Book のテスト結果
+
+```zsh
+running 2 tests
+test tests::add_message ... ok
+test tests::iters_messages ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> guest-book-rust@1.0.0 test:integration
+> cd integration-tests && npm test -- -- "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+> integration-tests@1.0.0 test
+> ava "--" "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+  ✔ send one message and retrieve it (2.5s)
+  ✔ send two messages and expect two total (5s)
+  ─
+
+  2 tests passed
+```
+
+### Guest Book Contract のデプロイ記録
+
+```zsh
+>> Deploying contract
+Starting deployment. Account id: dev-1666229594742-78931601450570, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: ./target/wasm32-unknown-unknown/release/contract.wasm
+Transaction Id DQvNJcKJyM9or2xnwje9oogpR8kNFggNVs8Q6QBALwxH
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/DQvNJcKJyM9or2xnwje9oogpR8kNFggNVs8Q6QBALwxH
+Done deploying to dev-1666229594742-78931601450570
+```
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
@@ -164,3 +214,5 @@ Contract logs from contract.test.near.reset({}) call: [ 'Reset counter to zero' 
 7. [Near Example Counter Rust](https://github.com/near-examples/counter-rust)
 8. [Near Example Fungible Token](https://github.com/near-examples/FT)
 9. [Near Example NFT](https://github.com/near-examples/NFT)
+10. [NEAR Explorer(testnet)](https://explorer.testnet.near.org/)
+11. [Near Example Guest Book](https://github.com/near-examples/guest-book-rust)
