@@ -204,6 +204,10 @@ https://explorer.testnet.near.org/transactions/DQvNJcKJyM9or2xnwje9oogpR8kNFggNV
 Done deploying to dev-1666229594742-78931601450570
 ```
 
+### Guest Book の起動例
+
+<img src="./docs/img/guest-book.png">
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)

@@ -6,6 +6,9 @@ use near_sdk::json_types::{U128};
 
 const POINT_ONE: Balance = 100_000_000_000_000_000_000_000;
 
+/**
+ * PostedMessage struct
+ */
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct PostedMessage {
@@ -14,12 +17,19 @@ pub struct PostedMessage {
   pub text: String
 }
 
+/**
+ * GuestBook Contract 
+ */
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct GuestBook {
+  // messages (Array)
   messages: Vector<PostedMessage>,
 }
 
+/**
+ * init function
+ */
 impl Default for GuestBook{
   fn default() -> Self {
     Self{messages: Vector::new(b"m")}
@@ -29,6 +39,9 @@ impl Default for GuestBook{
 #[near_bindgen]
 impl GuestBook {
 
+  /**
+   * add messages function
+   */
   #[payable]
   pub fn add_message(&mut self, text: String) {
     // If the user attaches more than 0.01N the message is premium
@@ -39,21 +52,19 @@ impl GuestBook {
     self.messages.push(&message);
   }
 
+  /**
+   * get messages function
+   */
   pub fn get_messages(&self, from_index:Option<U128>, limit:Option<u64>) -> Vec<PostedMessage>{
     let from = u128::from(from_index.unwrap_or(U128(0)));
 
-    self.messages.iter()
-    .skip(from as usize)
-    .take(limit.unwrap_or(10) as usize)
-    .collect()
+    self.messages
+          .iter()
+          .skip(from as usize)
+          .take(limit.unwrap_or(10) as usize)
+          .collect()
   }
 }
-
-/*
- * the rest of this file sets up unit tests
- * to run these, the command will be: `cargo test`
- * Note: 'rust-counter-tutorial' comes from cargo.toml's 'name' key
- */
 
 // use the attribute below for unit tests
 #[cfg(test)]
@@ -62,6 +73,7 @@ mod tests {
 
   #[test]
   fn add_message() {
+    // create Contract 
     let mut contract = GuestBook::default();
     contract.add_message("A message".to_string());
 
@@ -72,6 +84,7 @@ mod tests {
 
   #[test]
   fn iters_messages() {
+    // create Contract 
     let mut contract = GuestBook::default();
     contract.add_message("1st message".to_string());
     contract.add_message("2nd message".to_string());
