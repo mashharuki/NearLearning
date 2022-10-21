@@ -208,6 +208,41 @@ Done deploying to dev-1666229594742-78931601450570
 
 <img src="./docs/img/guest-book.png">
 
+
+### Donationの起動例
+
+```zsh
+   Finished test [unoptimized + debuginfo] target(s) in 32.08s
+     Running unittests src/lib.rs (target/debug/deps/contract-523f2161a4e81e09)
+
+running 2 tests
+test tests::initializes ... ok
+test tests::donate ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> donation-rust@1.0.0 test:integration
+> cd integration-tests && npm test -- -- "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+> integration-tests@1.0.0 test
+> ava "--" "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+Contract logs from contract.test.near.donate({}) call: [
+  'Thank you bob.test.near for donating 2000000000000000000000000! You donated a total of 2000000000000000000000000'
+]
+  ✔ records the donation (3s)
+Contract logs from contract.test.near.donate({}) call: [
+  'Thank you alice.test.near for donating 1000000000000000000000000! You donated a total of 1000000000000000000000000'
+]
+  ✔ sends donations to the beneficiary (3s)
+  ─
+
+  2 tests passed
+```
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
