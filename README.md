@@ -243,6 +243,10 @@ Contract logs from contract.test.near.donate({}) call: [
   2 tests passed
 ```
 
+### donation DAppの起動例
+
+<img src="./docs/img/donation.png">
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
