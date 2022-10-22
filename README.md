@@ -310,6 +310,56 @@ change greeting
 near call dev-1666366301558-59429896796674 change_greeting '{"new_greeting":"Hello Near!!"}' --accountId dev-1666366301558-59429896796674
 ```
 
+### FT 
+
+```zsh
+./scripts/build.sh
+```
+
+#### deploy FT Contract
+
+```zsh
+near dev-deploy --wasmFile ./res/fungible_token.wasm
+```
+レスポンス例
+```zsh
+Starting deployment. Account id: dev-1666448292562-94239640320244, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: ./res/fungible_token.wasm
+Transaction Id 7GNSdwRVXv8aEm3AQVi4WNn3oFL336Vdee9wUbTsqm9P
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/7GNSdwRVXv8aEm3AQVi4WNn3oFL336Vdee9wUbTsqm9P
+Done deploying to dev-1666448292562-94239640320244
+```
+
+#### Inti FT metadata
+
+```zsh
+near call dev-1666448292562-94239640320244 new '{"owner_id": "mashharuki2.testnet", "total_supply": "1000000000000000", "metadata": { "spec": "ft-1.0.0", "name": "MashToken", "symbol": "MSH", "decimals": 8 }}' --accountId dev-1666448292562-94239640320244
+```
+
+#### Get FT Metadata
+
+```zsh
+near view dev-1666448292562-94239640320244 ft_metadata
+```
+
+#### Register ID
+
+```zsh
+near call dev-1666448292562-94239640320244 storage_deposit '{"account_id": "dev-1666366301558-59429896796674"}' --accountId dev-1666366301558-59429896796674 --amount 0.00125
+```
+
+#### transfer
+
+```zsh
+near call dev-1666448292562-94239640320244 ft_transfer '{"receiver_id": "mashharuki3.testnet", "amount": "10000"}' --accountId dev-1666366301558-59429896796674 --depositYocto 1
+```
+
+#### get balance
+
+```zsh
+near view dev-1666448292562-94239640320244 ft_balance_of '{"account_id": "dev-1666366301558-59429896796674"}'
+```
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
@@ -324,3 +374,4 @@ near call dev-1666366301558-59429896796674 change_greeting '{"new_greeting":"Hel
 11. [Near Example Guest Book](https://github.com/near-examples/guest-book-rust)
 12. [Near Example Donation](https://github.com/near-examples/donation-rust)
 13. [Complex Cross Contract Call](https://docs.near.org/tutorials/examples/advanced-xcc#)
+14. [Fungible Token Standard](https://nomicon.io/Standards/Tokens/FungibleToken/)
