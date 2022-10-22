@@ -247,6 +247,69 @@ Contract logs from contract.test.near.donate({}) call: [
 
 <img src="./docs/img/donation.png">
 
+### cross contractのテスト結果
+
+```zsh
+running 1 test
+test tests::initializes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> xcc-rust@1.0.0 test:integration
+> cd integration-tests && npm test -- -- "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+> integration-tests@1.0.0 test
+> ava "--" "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+
+
+Contract logs from xcc.test.near.change_greeting({"new_greeting":"Howdy"}) call: [ 'Saving greeting Howdy', 'set_greeting was successful!' ]
+  ✔ returns the default greeting (3.5s)
+  ✔ change the greeting (7s)
+  ─
+
+  2 tests passed
+```
+
+### cross contract deploy
+
+```zsh
+>> Building contract
+info: component 'rust-std' for target 'wasm32-unknown-unknown' is up to date
+    Finished release [optimized] target(s) in 0.77s
+>> Deploying contract
+Starting deployment. Account id: dev-1666364094200-15795635280546, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: ./target/wasm32-unknown-unknown/release/contract.wasm
+Transaction Id 3m8KBatTzAavkN1Au7MUXGcHtwiXkQXoHFbi9aEdMZ2r
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/3m8KBatTzAavkN1Au7MUXGcHtwiXkQXoHFbi9aEdMZ2r
+Done deploying to dev-1666364094200-15795635280546
+```
+
+### cross contract init && getGreeting && changeGreeting
+
+```zsh
+near call dev-1666366301558-59429896796674 init '{ "hello_account" : "dev-1666101496152-75593018686129" }' --accountId dev-1666366301558-59429896796674
+```
+
+```zsh
+near call dev-1666366301558-59429896796674 query_greeting --accountId dev-1666366301558-59429896796674
+```
+
+レスポンス結果
+```zsh
+Transaction Id 33CdnsfFNwabfrgsHeTuDipqKwvyaTJm5E7ovgAwthmj
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/33CdnsfFNwabfrgsHeTuDipqKwvyaTJm5E7ovgAwthmj
+'Hello World!!!!!!'
+```
+
+change greeting
+
+```zsh
+near call dev-1666366301558-59429896796674 change_greeting '{"new_greeting":"Hello Near!!"}' --accountId dev-1666366301558-59429896796674
+```
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
@@ -259,3 +322,5 @@ Contract logs from contract.test.near.donate({}) call: [
 9. [Near Example NFT](https://github.com/near-examples/NFT)
 10. [NEAR Explorer(testnet)](https://explorer.testnet.near.org/)
 11. [Near Example Guest Book](https://github.com/near-examples/guest-book-rust)
+12. [Near Example Donation](https://github.com/near-examples/donation-rust)
+13. [Complex Cross Contract Call](https://docs.near.org/tutorials/examples/advanced-xcc#)
