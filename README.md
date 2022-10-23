@@ -360,6 +360,122 @@ near call dev-1666448292562-94239640320244 ft_transfer '{"receiver_id": "mashhar
 near view dev-1666448292562-94239640320244 ft_balance_of '{"account_id": "dev-1666366301558-59429896796674"}'
 ```
 
+#### NFT deploy 
+
+```zsh
+near dev-deploy --wasmFile ./res/non_fungible_token.wasm
+```
+
+レスポンス例
+
+```zsh
+Starting deployment. Account id: dev-1666491632538-13483140650591, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: ./res/non_fungible_token.wasm
+Transaction Id 9CWAzB1EZiqhgzjGCk8okrS3LkdECKNZJzvYJG9t7JuW
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/9CWAzB1EZiqhgzjGCk8okrS3LkdECKNZJzvYJG9t7JuW
+Done deploying to dev-1666491632538-13483140650591
+```
+
+### Init NFT
+
+```zsh
+near call dev-1666491632538-13483140650591 new_default_meta '{ "owner_id" : "dev-1666491632538-13483140650591" }' --accountId dev-1666491632538-13483140650591
+```
+
+### Attached NFT Storage
+
+```zsh
+near call dev-1666491632538-13483140650591 nft_transfer_call '{"receiver_id": "nearlearning.testnet", "token_id": "0", "msg": "this is a test"}' --accountId mashharuki2.testnet --deposit 1
+```
+
+### NFT set metadata
+
+```zsh
+near call dev-1666491632538-13483140650591 nft_mint '{"token_id": "0", "receiver_id": "nearlearning.testnet", "token_metadata": {"title": "Mash", "description": "This is a test NFT", "media": "http://hogehoge.com" }, "royalties": {"<account>" : 0.1, "<account>" : 0.9}}' --accountId mashharuki2.testnet --deposit 0.1
+```
+
+レスポンス例
+
+```zsh
+Transaction Id 6tpyYbCPH3T4yqXohBMoNREvcFv49RePpxqV1m4vk1h9
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/6tpyYbCPH3T4yqXohBMoNREvcFv49RePpxqV1m4vk1h9
+{
+  token_id: '0',
+  owner_id: 'nearlearning.testnet',
+  metadata: {
+    title: 'Mash',
+    description: 'This is a test NFT',
+    media: 'http://hogehoge.com',
+    media_hash: null,
+    copies: null,
+    issued_at: null,
+    expires_at: null,
+    starts_at: null,
+    updated_at: null,
+    extra: null,
+    reference: null,
+    reference_hash: null
+  },
+  approved_account_ids: {}
+}
+```
+
+### get NFT Metadata
+
+```zsh
+near view dev-1666491632538-13483140650591 nft_metadata
+```
+
+```zsh
+{
+  spec: 'nft-1.0.0',
+  name: 'Example NEAR non-fungible token',
+  symbol: 'EXAMPLE',
+  icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 288 288'%3E%3Cg id='l' data-name='l'%3E%3Cpath d='M187.58,79.81l-30.1,44.69a3.2,3.2,0,0,0,4.75,4.2L191.86,103a1.2,1.2,0,0,1,2,.91v80.46a1.2,1.2,0,0,1-2.12.77L102.18,77.93A15.35,15.35,0,0,0,90.47,72.5H87.34A15.34,15.34,0,0,0,72,87.84V201.16A15.34,15.34,0,0,0,87.34,216.5h0a15.35,15.35,0,0,0,13.08-7.31l30.1-44.69a3.2,3.2,0,0,0-4.75-4.2L96.14,186a1.2,1.2,0,0,1-2-.91V104.61a1.2,1.2,0,0,1,2.12-.77l89.55,107.23a15.35,15.35,0,0,0,11.71,5.43h3.13A15.34,15.34,0,0,0,216,201.16V87.84A15.34,15.34,0,0,0,200.66,72.5h0A15.35,15.35,0,0,0,187.58,79.81Z'/%3E%3C/g%3E%3C/svg%3E",
+  base_uri: null,
+  reference: null,
+  reference_hash: null
+}
+```
+
+### check NFT owner
+
+```zsh
+near view dev-1666491632538-13483140650591 nft_tokens_for_owner '{"account_id": "nearlearning.testnet"}'
+```
+
+レスポンス例
+
+```zsh
+View call: dev-1666491632538-13483140650591.nft_tokens_for_owner({"account_id": "nearlearning.testnet"})
+[
+  {
+    token_id: '0',
+    owner_id: 'nearlearning.testnet',
+    metadata: {
+      title: 'Mash',
+      description: 'This is a test NFT',
+      media: 'http://hogehoge.com',
+      media_hash: null,
+      copies: null,
+      issued_at: null,
+      expires_at: null,
+      starts_at: null,
+      updated_at: null,
+      extra: null,
+      reference: null,
+      reference_hash: null
+    },
+    approved_account_ids: {}
+  }
+]
+```
+
+### NFT Tutorialの起動例
+
+<img src="./docs/img/nft.png">
+
 #### 参考文献
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
@@ -375,3 +491,4 @@ near view dev-1666448292562-94239640320244 ft_balance_of '{"account_id": "dev-16
 12. [Near Example Donation](https://github.com/near-examples/donation-rust)
 13. [Complex Cross Contract Call](https://docs.near.org/tutorials/examples/advanced-xcc#)
 14. [Fungible Token Standard](https://nomicon.io/Standards/Tokens/FungibleToken/)
+15. [NEAR Example Frontend(sample)](https://github.com/near-examples/nft-tutorial-frontend)
