@@ -486,7 +486,81 @@ View call: dev-1666491632538-13483140650591.nft_tokens_for_owner({"account_id": 
 cd ./dao/sputnik-dao-contract && sh ./build.sh
 ```
 
-dev-1666409419467-82922668121043
+```zsh
+export CONTRACT_ID=dev-1667465532719-78367815258907
+```
+
+### DAO ファクトリーのデプロイ
+
+```zsh
+near dev-deploy --wasmFile=res/sputnikdao_factory2.wasm
+```
+
+### コントラクトの初期化
+
+```zsh
+near call $CONTRACT_ID new --accountId $CONTRACT_ID --gas 100000000000000
+```
+
+### DAO のメンバーと情報を定義する
+
+```zsh
+export COUNCIL='["council-member.testnet", "mashharuki.testnet"]'
+```
+
+```zsh
+export ARGS=`echo '{"config": {"name": "genesis", "purpose": "Mash DAO", "metadata":""}, "policy": '$COUNCIL'}' | base64`
+```
+
+### DAO を作成する。
+
+```zsh
+near call $CONTRACT_ID create "{\"name\": \"genesis\", \"args\": \"$ARGS\"}" --accountId $CONTRACT_ID --amount 10 --gas 150000000000000
+```
+
+### DAO コントラクトのアカウント取得
+
+```zsh
+export SPUTNIK_ID=genesis.$CONTRACT_ID
+```
+
+### DAO の情報を取得する。
+
+```zsh
+near view $SPUTNIK_ID get_policy
+```
+
+result
+
+```zsh
+{
+  roles: [
+    {
+      name: 'all',
+      kind: 'Everyone',
+      permissions: [ '*:AddProposal' ],
+      vote_policy: {}
+    },
+    {
+      name: 'council',
+      kind: { Group: [ 'council-member.testnet', 'mashharuki.testnet' ] },
+      permissions: [
+        '*:Finalize',
+        '*:AddProposal',
+        '*:VoteApprove',
+        '*:VoteReject',
+        '*:VoteRemove'
+      ],
+      vote_policy: {}
+    }
+  ],
+  default_vote_policy: { weight_kind: 'RoleWeight', quorum: '0', threshold: [ 1, 2 ] },
+  proposal_bond: '1000000000000000000000000',
+  proposal_period: '604800000000000',
+  bounty_bond: '1000000000000000000000000',
+  bounty_forgiveness_period: '86400000000000'
+}
+```
 
 #### 参考文献
 
