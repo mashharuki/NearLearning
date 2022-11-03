@@ -1,5 +1,6 @@
 # NearLearning
-Near Protocolを学習するためのリポジトリです。
+
+Near Protocol を学習するためのリポジトリです。
 
 ### ウォレットの生成コマンド
 
@@ -10,9 +11,9 @@ Near Protocolを学習するためのリポジトリです。
 
 [https://docs.near.org/concepts/basics/networks](https://docs.near.org/concepts/basics/networks)
 
-### テンプレのNear DAppプロジェクト生成コマンド
+### テンプレの Near DApp プロジェクト生成コマンド
 
-`npx create-near-app@latest my-dapp --contract rust --frontend react --tests rust`  
+`npx create-near-app@latest my-dapp --contract rust --frontend react --tests rust`
 
 うまく行けば`my-dapp`というディレクトリが生成され、下記のような内容が出力される。
 
@@ -22,7 +23,7 @@ Creating a new NEAR dApp
 ======================================================
 ✅  Success! Created 'my-dapp'
    with a smart contract in Rust and a frontend template in React.js.
-🦀 If you are new to Rust please visit https://www.rust-lang.org 
+🦀 If you are new to Rust please visit https://www.rust-lang.org
 
   Your next steps:
    - Navigate to your project:
@@ -110,7 +111,6 @@ Done deploying to dev-1666101496152-75593018686129
 
 <img src="./docs/img/hello.png">
 
-
 #### 開発用のウォレットのシードリカバリーフレーズ ※開発用！！※
 
 ```zsh
@@ -119,7 +119,7 @@ nearlearning.testnet
 expect erupt antenna simple census stereo student sadness fever cousin news escape
 ```
 
-### Counter Projectのテスト結果
+### Counter Project のテスト結果
 
 ```zsh
 running 5 tests
@@ -208,8 +208,7 @@ Done deploying to dev-1666229594742-78931601450570
 
 <img src="./docs/img/guest-book.png">
 
-
-### Donationの起動例
+### Donation の起動例
 
 ```zsh
    Finished test [unoptimized + debuginfo] target(s) in 32.08s
@@ -243,11 +242,12 @@ Contract logs from contract.test.near.donate({}) call: [
   2 tests passed
 ```
 
-### donation DAppの起動例
+### donation DApp の起動例
 
 <img src="./docs/img/donation.png">
 
 #### 参考文献
+
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
 2. [Near ADK Rust Docs](https://docs.rs/near-sdk/latest/near_sdk/collections/)
 3. [Arlocal](https://github.com/textury/arlocal)
