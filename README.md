@@ -579,3 +579,4 @@ result
 13. [Complex Cross Contract Call](https://docs.near.org/tutorials/examples/advanced-xcc#)
 14. [Fungible Token Standard](https://nomicon.io/Standards/Tokens/FungibleToken/)
 15. [NEAR Example Frontend(sample)](https://github.com/near-examples/nft-tutorial-frontend)
+16. [nft tutorial](https://github.com/near-examples/nft-tutorial/tree/1.skeleton/)
