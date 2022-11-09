@@ -1,3 +1,5 @@
+use crate::*;
+
 pub trait NonFungibleTokenCore {
       /**
        * nft_payout

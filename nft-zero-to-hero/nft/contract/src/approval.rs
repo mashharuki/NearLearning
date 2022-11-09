@@ -1,3 +1,6 @@
+use crate::*;
+use near_sdk::{ext_contract};
+
 pub trait NonFungibleTokenCore {
       /**
        * approve an account ID to transfer a token on your behalf
