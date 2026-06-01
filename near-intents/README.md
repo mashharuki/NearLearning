@@ -5,3 +5,4 @@
 - [Near Intents 公式サイト](https://near-intents.org/)
 - [Near Intents 開発者ガイド](https://www.near.org/intents)
 - [Near Agent SKILL](https://github.com/near/agent-skills)
+- [Near Intens Examples](https://github.com/near-examples/near-intents-examples)

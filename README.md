@@ -7,9 +7,19 @@ Near Protocol を学習するためのリポジトリです。
 `near generate-key my-new-account`  
  上記コマンドを打つとローカルの`~/.near-credentials/testnet/my-new-account.json`というファイルが生成されてそこに鍵ペアの情報が記載される。
 
+もしくは以下のCLIをインストールしても良い
+
+```bash
+npm install -g near-cli-rs@latest
+```
+
 ### ネットワークの種類などは下記を参照すること
 
 [https://docs.near.org/concepts/basics/networks](https://docs.near.org/concepts/basics/networks)
+
+```bash
+near create-account <account.testnet> --useFaucet
+```
 
 ### テンプレの Near DApp プロジェクト生成コマンド
 
@@ -573,10 +583,12 @@ result
 7. [Near Example Counter Rust](https://github.com/near-examples/counter-rust)
 8. [Near Example Fungible Token](https://github.com/near-examples/FT)
 9. [Near Example NFT](https://github.com/near-examples/NFT)
-10. [NEAR Explorer(testnet)](https://explorer.testnet.near.org/)
+10. [NEAR Explorer(testnet)](https://testnet.nearblocks.io/)
 11. [Near Example Guest Book](https://github.com/near-examples/guest-book-rust)
 12. [Near Example Donation](https://github.com/near-examples/donation-rust)
 13. [Complex Cross Contract Call](https://docs.near.org/tutorials/examples/advanced-xcc#)
 14. [Fungible Token Standard](https://nomicon.io/Standards/Tokens/FungibleToken/)
 15. [NEAR Example Frontend(sample)](https://github.com/near-examples/nft-tutorial-frontend)
 16. [nft tutorial](https://github.com/near-examples/nft-tutorial/tree/1.skeleton/)
+17. [Create Account](https://docs.near.org/getting-started/create-account)
+18. [Testnet Faucet](https://docs.near.org/getting-started/faucet)
