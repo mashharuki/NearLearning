@@ -33,26 +33,26 @@ export const quoteRequestSchema = z.object({
 });
 
 export const quoteSchema = z.object({
-  amountIn: z.string().optional(),
-  amountInFormatted: z.string().optional(),
+  amountIn: z.string().nullable().optional(),
+  amountInFormatted: z.string().nullable().optional(),
   amountInUsd: z.union([z.string(), z.number()]).optional(),
-  minAmountIn: z.string().optional(),
-  amountOut: z.string().optional(),
-  amountOutFormatted: z.string().optional(),
+  minAmountIn: z.string().nullable().optional(),
+  amountOut: z.string().nullable().optional(),
+  amountOutFormatted: z.string().nullable().optional(),
   amountOutUsd: z.union([z.string(), z.number()]).optional(),
-  minAmountOut: z.string().optional(),
-  timeEstimate: z.number().optional(),
-  depositAddress: z.string().optional(),
+  minAmountOut: z.string().nullable().optional(),
+  timeEstimate: z.number().nullable().optional(),
+  depositAddress: z.string().nullable().optional(),
   depositMemo: z.string().nullable().optional(),
-  deadline: z.string().optional(),
-  timeWhenInactive: z.string().optional(),
-  refundFee: z.string().optional(),
+  deadline: z.string().nullable().optional(),
+  timeWhenInactive: z.string().nullable().optional(),
+  refundFee: z.string().nullable().optional(),
 });
 
 export const quoteResponseSchema = z.object({
-  correlationId: z.string(),
-  timestamp: z.string(),
-  signature: z.string().optional(),
+  correlationId: z.string().optional(),
+  timestamp: z.string().optional(),
+  signature: z.string().nullable().optional(),
   quoteRequest: quoteRequestSchema.partial().passthrough(),
   quote: quoteSchema.passthrough(),
 });
@@ -72,16 +72,16 @@ export const statusResponseSchema = z.object({
   updatedAt: z.string().optional(),
   swapDetails: z
     .object({
-      amountIn: z.string().optional(),
-      amountInFormatted: z.string().optional(),
-      amountOut: z.string().optional(),
-      amountOutFormatted: z.string().optional(),
-      slippage: z.number().optional(),
-      refundedAmount: z.string().optional(),
-      refundedAmountFormatted: z.string().optional(),
-      refundReason: z.string().optional(),
-      depositedAmount: z.string().optional(),
-      depositedAmountFormatted: z.string().optional(),
+      amountIn: z.string().nullable().optional(),
+      amountInFormatted: z.string().nullable().optional(),
+      amountOut: z.string().nullable().optional(),
+      amountOutFormatted: z.string().nullable().optional(),
+      slippage: z.number().nullable().optional(),
+      refundedAmount: z.string().nullable().optional(),
+      refundedAmountFormatted: z.string().nullable().optional(),
+      refundReason: z.string().nullable().optional(),
+      depositedAmount: z.string().nullable().optional(),
+      depositedAmountFormatted: z.string().nullable().optional(),
       originChainTxHashes: z
         .array(
           z.object({ hash: z.string(), explorerUrl: z.string().optional() }),

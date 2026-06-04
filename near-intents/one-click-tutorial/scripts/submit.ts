@@ -16,6 +16,9 @@ if (!depositAddress) {
 console.log('Submitting deposit transaction hash to 1-Click...');
 console.log(`  depositAddress: ${depositAddress}`);
 console.log(`  txHash: ${txHash}`);
+if (config.senderNearAccount) {
+  console.log(`  nearSenderAccount: ${config.senderNearAccount}`);
+}
 
 const response = await submitDepositTx(config, depositAddress, txHash);
 console.log('\nSubmit response:');

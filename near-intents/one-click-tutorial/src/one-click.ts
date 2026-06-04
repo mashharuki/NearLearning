@@ -131,10 +131,15 @@ export async function submitDepositTx(
   txHash: string,
 ): Promise<unknown> {
   // 注意: 1-Click APIは入金トランザクションの内容を検査しないため、ユーザーが誤ったトランザクションを提出するリスクがあります。d
+  const body: Record<string, string> = { depositAddress, txHash };
+  if (config.senderNearAccount) {
+    body.nearSenderAccount = config.senderNearAccount;
+  }
+
   const response = await fetch(`${config.baseUrl}/v0/deposit/submit`, {
     method: 'POST',
     headers: headers(config),
-    body: JSON.stringify({ depositAddress, txHash }),
+    body: JSON.stringify(body),
   });
   return parseJsonResponse(response);
 }

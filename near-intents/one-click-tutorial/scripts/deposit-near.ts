@@ -1,5 +1,5 @@
 import { assertRealSwapAllowed, getConfig } from '../src/config.js';
-import { sendNearDeposit } from '../src/near-deposit.js';
+import { sendNearDeposit, sendNep141Deposit } from '../src/near-deposit.js';
 import { loadQuote, saveDepositTx, txFile } from '../src/storage.js';
 
 const config = getConfig();
@@ -15,9 +15,10 @@ if (!depositAddress || !depositAmount) {
   );
 }
 
-if (quote.quoteRequest.originAsset !== 'nep141:wrap.near') {
+const originAsset = quote.quoteRequest.originAsset;
+if (!originAsset?.startsWith('nep141:')) {
   throw new Error(
-    'deposit:near only supports ORIGIN_ASSET=nep141:wrap.near in this tutorial.',
+    'deposit:near only supports NEAR-origin NEP-141 assets such as nep141:wrap.near or nep141:usdt.tether-token.near.',
   );
 }
 
@@ -27,11 +28,21 @@ if (quote.quote.depositMemo) {
   );
 }
 
-console.log('Sending real NEAR deposit to 1-Click deposit address...');
+console.log('Sending real NEAR-chain deposit to 1-Click deposit address...');
 console.log(`  receiverId: ${depositAddress}`);
+console.log(`  originAsset: ${originAsset}`);
 console.log(`  amount(base units): ${depositAmount}`);
 
-const txHash = await sendNearDeposit(config, depositAddress, depositAmount);
+const tokenContractId = originAsset.replace(/^nep141:/, '');
+const txHash =
+  tokenContractId === 'wrap.near'
+    ? await sendNearDeposit(config, depositAddress, depositAmount)
+    : await sendNep141Deposit(
+        config,
+        tokenContractId,
+        depositAddress,
+        depositAmount,
+      );
 await saveDepositTx(txHash);
 
 console.log(`\nDeposit transaction hash: ${txHash}`);
