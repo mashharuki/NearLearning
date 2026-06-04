@@ -10,6 +10,11 @@ import {
   tokenSchema,
 } from './types.js';
 
+/**
+ * API呼び出し用のヘッダーを構築します。
+ * @param config 
+ * @returns 
+ */
 function headers(config: TutorialConfig): HeadersInit {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -22,6 +27,11 @@ function headers(config: TutorialConfig): HeadersInit {
   return headers;
 }
 
+/**
+ * JSONレスポンスを解析し、エラーがあれば例外をスローします。
+ * @param response 
+ * @returns 
+ */
 async function parseJsonResponse(response: Response): Promise<unknown> {
   const text = await response.text();
   const body = text ? JSON.parse(text) : null;
@@ -33,12 +43,23 @@ async function parseJsonResponse(response: Response): Promise<unknown> {
   return body;
 }
 
+/**
+ * トークン情報を取得するAPI
+ * @param config 
+ * @returns 
+ */
 export async function getTokens(config: TutorialConfig): Promise<TokenInfo[]> {
   const response = await fetch(`${config.baseUrl}/v0/tokens`);
   const body = await parseJsonResponse(response);
   return tokenSchema.array().parse(body);
 }
 
+/**
+ * トークンを検索するユーティリティ関数
+ * @param tokens 
+ * @param assetId 
+ * @returns 
+ */
 export function findToken(tokens: TokenInfo[], assetId: string): TokenInfo {
   const token = tokens.find((candidate) => candidate.assetId === assetId);
   if (!token) {
@@ -47,6 +68,13 @@ export function findToken(tokens: TokenInfo[], assetId: string): TokenInfo {
   return token;
 }
 
+/**
+ * 見積もり取得のためのリクエストオブジェクトを構築します。
+ * @param config 
+ * @param origin 
+ * @param dry 
+ * @returns 
+ */
 export function buildQuoteRequest(
   config: TutorialConfig,
   origin: TokenInfo,
@@ -71,6 +99,12 @@ export function buildQuoteRequest(
   };
 }
 
+/**
+ * 見積もりを取得するAPIを呼び出します。
+ * @param config 
+ * @param quoteRequest 
+ * @returns 
+ */
 export async function getQuote(
   config: TutorialConfig,
   quoteRequest: QuoteRequest,
@@ -84,11 +118,19 @@ export async function getQuote(
   return quoteResponseSchema.parse(body);
 }
 
+/**
+ * 入金トランザクションを提出するAPIを呼び出します。
+ * @param config 
+ * @param depositAddress 
+ * @param txHash 
+ * @returns 
+ */
 export async function submitDepositTx(
   config: TutorialConfig,
   depositAddress: string,
   txHash: string,
 ): Promise<unknown> {
+  // 注意: 1-Click APIは入金トランザクションの内容を検査しないため、ユーザーが誤ったトランザクションを提出するリスクがあります。d
   const response = await fetch(`${config.baseUrl}/v0/deposit/submit`, {
     method: 'POST',
     headers: headers(config),
@@ -97,6 +139,13 @@ export async function submitDepositTx(
   return parseJsonResponse(response);
 }
 
+/**
+ * トランザクションのステータスを取得するAPIを呼び出します。
+ * @param config 
+ * @param depositAddress 
+ * @param depositMemo 
+ * @returns 
+ */
 export async function getStatus(
   config: TutorialConfig,
   depositAddress: string,

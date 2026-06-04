@@ -572,6 +572,18 @@ result
 }
 ```
 
+## CLIの使い方
+
+```bash
+export ACCOUNT_ID=<自分のアカウントID>
+```
+
+### アカウントの情報を表示する
+
+```bash
+near state $ACCOUNT_ID 
+```
+
 #### 参考文献
 
 1. [NEAR Developer Docs](https://docs.near.org/concepts/basics/protocol)
@@ -592,3 +604,4 @@ result
 16. [nft tutorial](https://github.com/near-examples/nft-tutorial/tree/1.skeleton/)
 17. [Create Account](https://docs.near.org/getting-started/create-account)
 18. [Testnet Faucet](https://docs.near.org/getting-started/faucet)
+19. [1Click API](http://docs.near-intents.org/integration/distribution-channels/1click-api/about-1click-api)

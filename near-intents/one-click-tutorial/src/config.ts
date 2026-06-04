@@ -23,6 +23,10 @@ export interface TutorialConfig {
   realSwapConfirm?: string;
 }
 
+/**
+ * 各種設定を取得するメソッド
+ * @returns 
+ */
 export function getConfig(): TutorialConfig {
   return {
     baseUrl:
@@ -51,6 +55,10 @@ export function getConfig(): TutorialConfig {
   };
 }
 
+/**
+ * リアルスワップを実行する前に、環境変数が正しく設定されているかを確認するメソッド
+ * @param config 
+ */
 export function assertRealSwapAllowed(config: TutorialConfig): void {
   if (config.realSwapConfirm !== REAL_SWAP_CONFIRM_VALUE) {
     throw new Error(

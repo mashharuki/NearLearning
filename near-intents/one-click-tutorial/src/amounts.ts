@@ -1,3 +1,9 @@
+/**
+ * デジル表記の金額を、指定された小数点以下の桁数に基づいて整数の文字列（ベースユニット）に変換するメソッド
+ * @param value 
+ * @param decimals 
+ * @returns 
+ */
 export function decimalToBaseUnits(value: string, decimals: number): string {
   const normalized = value.trim();
   if (!/^\d+(\.\d+)?$/.test(normalized)) {
@@ -16,6 +22,9 @@ export function decimalToBaseUnits(value: string, decimals: number): string {
   return raw || '0';
 }
 
+/**
+ * Units in base (integer) form to decimal string with given decimals. 
+ */
 export function baseUnitsToDecimal(value: string, decimals: number): string {
   if (!/^\d+$/.test(value)) {
     throw new Error(`Invalid base-unit amount: ${value}`);
